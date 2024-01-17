@@ -1,0 +1,9 @@
+# Once dockerized, services all connect through a common docker network 'mynet'
+# For each container, docker sets the local network hostname to [container name]
+# SO, each java quotation module and the broker connects to tcp.activemq
+# the activemq container is port mapped to host machine (61616:61616)
+# This makes it possible for a client on the host machine to connect to the system.
+
+# In docker-compose.yml, I have used the 'depends on' key to ensure services are set
+# up in a logical order. However this may not be strictly necessary, my aim was to avoid any
+# unanticipated bugs.

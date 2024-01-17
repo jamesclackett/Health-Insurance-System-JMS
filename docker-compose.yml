@@ -1,0 +1,58 @@
+version: '3.6'
+
+services:
+
+  activemq:
+    container_name: activemq
+    image: rmohr/activemq:latest
+    networks:
+      - mynet
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+
+  auldfellas:
+    build:
+      context: ./auldfellas
+    networks:
+      - mynet
+    container_name: auldfellas
+    depends_on:
+      - broker
+
+  broker:
+    build:
+      context: ./broker
+    networks:
+      - mynet
+    container_name: broker
+    depends_on:
+      - activemq
+
+  dodgygeezers:
+    build:
+      context: ./dodgygeezers
+    networks:
+      - mynet
+    container_name: dodgygeezers
+    depends_on:
+      - broker
+
+  girlsallowed:
+    build:
+      context: ./girlsallowed
+    networks:
+      - mynet
+    container_name: girlsallowed
+    depends_on:
+      - broker
+
+networks:
+  mynet:
+    driver: bridge
+
+
+
+
+
+
